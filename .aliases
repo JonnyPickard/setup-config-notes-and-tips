@@ -5,23 +5,16 @@ alias p="cd ~/projects"
 alias t="cd ~/test"
 alias b="cd .."
 alias c="clear"
-alias lpath="IFS=':';for i in $PATH; do test -d "$i" && find "$i" -maxdepth 1 -executable -type f -exec basename {} \;; done"
 
-# Git Alias
-alias gs='git status '
-alias gp='git push origin master'
-alias g.='git add .; git commit -m '
-alias ga='git add '
-alias gb='git branch '
+# Git Aliases
+alias ga='git add' 
 alias gc='git commit'
-alias gk='gitk --all&'
-alias gx='gitx --all'
+alias gca='git commit --amend --reuse-message HEAD '
+alias g.='git add .; git commit -m'
+alias gs='git status'
+alias gpo='git push origin'
+alias gb='git branch -av'
+alias gco='git checkout'
+alias gcob='git checkout -b'
 alias gcm='git checkout master; git pull;'
-
-# Create .gitignore for node
-alias gin='printf ".gitignore\nnode_modules" > .gitignore'
-# Create .gitignore for ruby
-alias gir='printf ".gitignore\n.bundle" > .gitignore'
-
-# Random fun stuff
-alias weather='ansiweather'
+alias gh="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
