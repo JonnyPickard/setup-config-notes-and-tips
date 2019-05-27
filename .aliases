@@ -1,19 +1,21 @@
 # Aliases
-alias a="atom ."
-alias prof="atom ~/.bash_profile"
 alias p="cd ~/projects"
-alias t="cd ~/test"
 alias b="cd .."
 alias c="clear"
+alias i="open 'chrome://inspect'"
 
 # Git Aliases
 alias ga='git add' 
 alias gc='git commit'
-alias gca='git commit --amend --reuse-message HEAD '
 alias g.='git add .; git commit -m'
 alias gs='git status'
 alias gpo='git push origin'
+alias gco="git checkout"
 alias gb='git branch -av'
+
+alias kthree="kill -9 $(netstat -vanp tcp | grep 3000 | awk '{ print $9 }')"
+alias kflow="kill -9 $(ps aux | grep flow | awk '{print $2}')"
+alias gbd='git branch | grep -v "master" | xargs git branch -D' # Remove all branches apart from master 
 alias gco='git checkout'
 alias gcob='git checkout -b'
 alias gcm='git checkout master; git pull;'
