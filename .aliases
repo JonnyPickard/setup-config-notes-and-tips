@@ -13,6 +13,7 @@ alias gpo='git push origin'
 alias gco="git checkout"
 alias gb='git branch -av'
 
+# NOTHS
 alias kthree="kill -9 $(netstat -vanp tcp | grep 3000 | awk '{ print $9 }')"
 alias kflow="kill -9 $(ps aux | grep flow | awk '{print $2}')"
 alias gbd='git branch | grep -v "master" | xargs git branch -D' # Remove all branches apart from master 
