@@ -4,6 +4,8 @@ ZSH_THEME="lambda-mod"
 
 export ZSH="/Users/jonnyp/.oh-my-zsh"
 
+export NVM_AUTO_USE=true
+
 plugins=(
   autojump
   zsh-autosuggestions
