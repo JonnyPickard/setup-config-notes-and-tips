@@ -1,25 +1,22 @@
+# NOTE: turn off detault GIT zsh plugin
+
 # Aliases
 alias p="cd ~/projects"
 alias b="cd .."
 alias c="clear"
-alias i="open 'chrome://inspect'"
 
 # Git Aliases
-# NOTE: zsh git plugin can override some of these so you may need to set aliases below its initialisation
 alias ga='git add' 
 alias gc='git commit'
 alias g.='git add .; git commit -m'
 alias gs='git status'
-alias gpo='git push origin'
 alias gco="git checkout"
-# alias gb='git branch -av'
-alias gb="git for-each-ref --sort=-committerdate refs/heads/ --format=$'\033[95m%(committerdate:relative)\033[0m | \033[94m%(authorname)\033[0m | %(refname:short)'" # List sorted branches with last commit date, author and name
 
-# NOTHS
-alias kthree="kill -9 $(netstat -vanp tcp | grep 3000 | awk '{ print $9 }')"
-alias kflow="kill -9 $(ps aux | grep flow | awk '{print $2}')"
-alias gbd='git branch | grep -v "master" | xargs git branch -D' # Remove all branches apart from master 
-alias gco='git checkout'
-alias gcob='git checkout -b'
-alias gcm='git checkout master; git pull;'
-alias gh="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+# Git branch - list sorted branches with last commit date, author and name
+alias gb="git for-each-ref --sort=-committerdate refs/heads/ --format=$'\033[95m%(committerdate:relative)\033[0m | \033[94m%(authorname)\033[0m | %(refname:short)'"
+#  Git history pretty
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# alias killport="kill -9 $(netstat -vanp tcp | grep 3000 | awk '{ print $9 }')"
+# alias killprocess="kill -9 $(ps aux | grep flow | awk '{print $2}')"
+# alias gbd='git branch | grep -v "master" | xargs git branch -D' # Remove all branches apart from master 
