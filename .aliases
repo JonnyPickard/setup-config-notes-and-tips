@@ -1,21 +1,27 @@
 # NOTE: turn off detault GIT zsh plugin
 
 # Aliases
+## These ones are kind of silly but I've had them since day one and are used to them
 alias p="cd ~/projects"
 alias b="cd .."
 alias c="clear"
 
 # Git Aliases
+## These are part of most git plugins but I don't like overriding so many other aliases
+## So just have these as the most useful ones
 alias ga='git add' 
 alias gc='git commit'
-alias g.='git add .; git commit -m'
 alias gs='git status'
 alias gco="git checkout"
 
 # Git branch - list sorted branches with last commit date, author and name
 alias gb="git for-each-ref --sort=-committerdate refs/heads/ --format=$'\033[95m%(committerdate:relative)\033[0m | \033[94m%(authorname)\033[0m | %(refname:short)'"
-#  Git history pretty
+
+# Git history pretty
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# Random Commands
+## These were probably useful during specific projects but are dangerous to alias and forget about
 
 # alias killport="kill -9 $(netstat -vanp tcp | grep 3000 | awk '{ print $9 }')"
 # alias killprocess="kill -9 $(ps aux | grep flow | awk '{print $2}')"
