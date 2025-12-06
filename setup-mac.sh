@@ -1,0 +1,1 @@
+# TODO setup script for new mac environment configuration
