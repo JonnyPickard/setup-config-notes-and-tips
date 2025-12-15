@@ -23,7 +23,7 @@ mkdir ~/.nvm
 nvm install --lts
 ```
 
-### Python (via pyenv)
+### Python (via pyenv) *optional*
 
 ```sh
 brew install pyenv
@@ -32,7 +32,7 @@ pyenv install 3.12
 pyenv global 3.12
 ```
 
-### Go
+### Go *optional*
 
 ```sh
 # Download from https://go.dev/dl/ or:
@@ -45,13 +45,13 @@ brew install go
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-### Deno
+### Deno *optional*
 
 ```sh
 curl -fsSL https://deno.land/install.sh | sh
 ```
 
-### Bun
+### Bun *optional*
 
 ```sh
 brew install oven-sh/bun/bun
@@ -78,14 +78,29 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 ```
 
-### Shell Prompt
+### Shell Prompt (prmt + oh-my-zsh hybrid)
 
-- [prmt](https://github.com/3axap4eHko/prmt) - Ultra-fast, customizable shell prompt
+Uses [prmt](https://github.com/3axap4eHko/prmt) for ultra-fast prompt rendering (~2ms) combined with oh-my-zsh git functions for full git status indicators.
 
 ```sh
-# Install via cargo (requires Rust)
+# Install prmt via cargo (requires Rust)
 cargo install prmt
 ```
+
+**Prompt appearance (lambda-mod style):**
+```
+λ jonny [~/projects/repo] at  main ✔
+→                                    [71a6d97]
+```
+
+**Features:**
+- `λ` green on success, red on failure
+- Username in yellow, path in magenta
+- Git branch with `` icon in blue
+- Status indicators: `✔` clean, `+` staged, `!` modified, `-` deleted, `?` untracked
+- Git SHA in right prompt
+
+See `.zshrc` template for full configuration.
 
 ### Terminal Tools
 
@@ -149,8 +164,7 @@ brew install --cask flux                    # Screen color temperature
 
 ## 7. Config Files to Copy
 
-- `.zshrc` - Shell configuration
-- `lambda-jmod.zsh-theme` - Custom oh-my-zsh theme (copy to `~/.oh-my-zsh/themes/`)
+- `.zshrc` - Shell configuration (includes prmt prompt setup)
 - `MainProfile.json` - iTerm2 profile
 
 ## 8. VS Code

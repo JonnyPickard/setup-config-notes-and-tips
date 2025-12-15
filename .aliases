@@ -26,3 +26,5 @@ alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
 # alias killport="kill -9 $(netstat -vanp tcp | grep 3000 | awk '{ print $9 }')"
 # alias killprocess="kill -9 $(ps aux | grep flow | awk '{print $2}')"
 # alias gbd='git branch | grep -v "master" | xargs git branch -D' # Remove all branches apart from master 
+
+# alias gb='git branch -av'
