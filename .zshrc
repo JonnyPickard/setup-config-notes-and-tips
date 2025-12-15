@@ -90,32 +90,30 @@ export EDITOR="code-insiders"
 # ALIASES
 # ============================================================================
 
-# Navigation
+# GENERIC
+
+## Navigation
 alias p="cd ~/projects"
 alias b="cd .."
 alias c="clear"
 
-# Utilities
-alias code="code-insiders"
+## Utilities
 alias ls='eza -la'
 
-# Git
+## Git
 alias ga='git add'
 alias gc='git commit'
-alias g.='git add .; git commit -m'
-alias gs='git status'
-alias gpo='git push origin'
 alias gco="git checkout"
-alias gcob='git checkout -b'
-alias gb='git branch -av'
-alias gsync='git checkout main; git pull origin main;'
-alias gcm='git checkout master; git pull;'
-alias gbd='git branch | grep -v "master" | xargs git branch -D'
+alias gs='git status'
+
+alias gb="git for-each-ref --sort=-committerdate refs/heads/ --format=$'\033[95m%(committerdate:relative)\033[0m | \033[94m%(authorname)\033[0m | %(refname:short)'" # List sorted branches with last commit date, author and name
+
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
-# Python
-alias python="python3"
-alias pip="pip3"
+# Machine Specific
+
+## If using VSCode Insiders
+alias code="code-insiders"
 
 # ============================================================================
 # NVM (Node Version Manager) - Lazy Loading
