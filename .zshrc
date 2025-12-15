@@ -10,17 +10,26 @@ if [[ ":$FPATH:" != *":$HOME/.zsh/completions:"* ]]; then
   export FPATH="$HOME/.zsh/completions:$FPATH"
 fi
 
-# Init Homebrew (must be early for other tools)
-eval "$(brew shellenv)"
-fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+# Init Homebrew (hardcoded for speed - saves ~100ms subprocess call)
+# This is the static output of `brew shellenv` on Apple Silicon
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export MANPATH="/opt/homebrew/share/man${MANPATH:+:$MANPATH}"
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 
 # Oh-my-zsh setup
 export ZSH="$HOME/.oh-my-zsh"
 # ZSH_THEME is disabled - using prmt instead
 
-# Speed optimization: Disable auto-update checks (saves ~43ms)
-DISABLE_AUTO_UPDATE="true"
+# Speed optimizations
+DISABLE_AUTO_UPDATE="true"      # Saves ~43ms
 DISABLE_UPDATE_PROMPT="true"
+DISABLE_MAGIC_FUNCTIONS="true"  # Disables paste escaping, saves ~50ms
+DISABLE_COMPFIX="true"          # Skips compaudit permission checks
+skip_global_compinit=1          # Skip oh-my-zsh's compinit, we'll do it ourselves
 
 # Performance tweaks for zsh-autosuggestions
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -35,10 +44,10 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # - Alt+C: Fuzzy cd into directories
 
 plugins=(
+  evalcache                  # Must be FIRST - caches eval commands
   fzf-tab                    # Must be BEFORE autosuggestions (fuzzy tab completion)
   zsh-autosuggestions        # Inline history suggestions (fish-style)
   fast-syntax-highlighting   # Faster than zsh-syntax-highlighting
-  autojump
 )
 source $ZSH/oh-my-zsh.sh
 
@@ -50,7 +59,7 @@ source $ZSH/oh-my-zsh.sh
 #             →                           [sha]
 
 # Git status theme variables (lambda-mod style) - must be AFTER oh-my-zsh source
-ZSH_THEME_GIT_PROMPT_PREFIX="%F{magenta}at %F{blue} "
+ZSH_THEME_GIT_PROMPT_PREFIX="%F{magenta}at %F{blue} "
 ZSH_THEME_GIT_PROMPT_SUFFIX="%f"
 ZSH_THEME_GIT_PROMPT_DIRTY=""
 ZSH_THEME_GIT_PROMPT_CLEAN=" %F{green}%B✔%b%f"
@@ -68,16 +77,15 @@ PROMPT='$(prmt --shell zsh --code $? "{ok:green.bold:λ}{fail:red.bold:λ} {env:
 %F{cyan}%B→%b%f '
 RPROMPT='$(git_prompt_short_sha)'
 
-# fzf shell integration (keybindings + completion)
-source <(fzf --zsh)
+# fzf shell integration (keybindings + completion) - cached for speed
+_evalcache fzf --zsh
 
-# Speed optimization: Cache completions (saves ~20-30ms)
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
+# zoxide (smarter cd, replaces autojump) - uses 'j' command
+_evalcache zoxide init zsh --cmd j
+
+# Note: compinit is called by fzf-tab, no need to call it again
+# If completions break, uncomment:
+# autoload -Uz compinit && compinit -C
 
 # ============================================================================
 # SHELL CONFIGURATION
@@ -124,29 +132,29 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm() {
   unset -f nvm node npm npx
-  [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"
-  [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
   nvm "$@"
 }
 
 node() {
   unset -f nvm node npm npx
-  [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"
-  [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
   node "$@"
 }
 
 npm() {
   unset -f nvm node npm npx
-  [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"
-  [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
   npm "$@"
 }
 
 npx() {
   unset -f nvm node npm npx
-  [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"
-  [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
   npx "$@"
 }
 
@@ -168,6 +176,6 @@ add-zsh-hook chpwd load-nvmrc
 # ============================================================================
 # OTHER LANGUAGE TOOLS (add as needed)
 # ============================================================================
-# - Pyenv (Python)
+# - Pyenv (Python): _evalcache pyenv init -
 # - Bun
 # - Go

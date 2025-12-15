@@ -41,6 +41,9 @@ Full configuration is in [.zshrc](./.zshrc).
 All plugins are configured in `.zshrc`. Install the custom plugins first:
 
 ```sh
+# evalcache (caches eval commands for faster startup)
+git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
+
 # fzf-tab (fuzzy tab completion)
 git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
 
@@ -54,10 +57,11 @@ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CU
 **Plugin list:**
 | Plugin | Description |
 |--------|-------------|
+| [evalcache](https://github.com/mroth/evalcache) | Caches eval commands for faster startup |
 | [fzf-tab](https://github.com/Aloxaf/fzf-tab) | Fuzzy dropdown tab completion |
 | [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-style inline history suggestions |
 | [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | Real-time syntax highlighting (faster alternative) |
-| [autojump](https://github.com/wting/autojump) | Jump to frequently used directories |
+| [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter cd - jump to directories (`j <path>`) |
 
 **Keyboard shortcuts:**
 - `Tab` - Fuzzy dropdown completion

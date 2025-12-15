@@ -68,6 +68,9 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ### Oh-My-Zsh Custom Plugins
 
 ```sh
+# evalcache (caches eval commands for faster startup)
+git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
+
 # fzf-tab (fuzzy tab completion)
 git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
 
@@ -105,7 +108,7 @@ See `.zshrc` template for full configuration.
 ### Terminal Tools
 
 ```sh
-brew install fzf eza autojump
+brew install fzf eza zoxide
 ```
 
 ## 5. CLI Tools
@@ -180,7 +183,7 @@ Login to sync settings/extensions. Key extension:
 
 ```
 aspell
-autojump
+zoxide
 automake
 biome
 cmake
