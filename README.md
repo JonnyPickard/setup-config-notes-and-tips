@@ -9,7 +9,7 @@ See [new-mac-dependencies.md](./new-mac-dependencies.md) for full installation i
 ## Contents
 
 - [Shell Prompt (prmt)](#shell-prompt-prmt)
-- [ZSH Plugins](#zsh-plugins)
+- [Zinit (Plugin Manager)](#zinit-plugin-manager)
 - [Profiling ZSH Startup Time](#profiling-zsh-startup-time)
 - [VS Code](#vs-code)
 - [iTerm2](#iterm2)
@@ -40,36 +40,26 @@ cargo install prmt
 
 Full configuration is in [.zshrc](./.zshrc).
 
-## ZSH Plugins
+## Zinit (Plugin Manager)
 
-All plugins are configured in `.zshrc`. Install the custom plugins first:
+Uses [zinit](https://github.com/zdharma-continuum/zinit) for fast plugin management with Turbo mode.
+
+**Install:**
 
 ```sh
-# evalcache (caches eval commands for faster startup)
-git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
-
-# zsh-defer (defer loading of non-essential plugins)
-git clone https://github.com/romkatv/zsh-defer ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-defer
-
-# fzf-tab (fuzzy tab completion)
-git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-
-# zsh-autosuggestions (fish-style suggestions)
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-# fast-syntax-highlighting (faster than zsh-syntax-highlighting)
-git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+git clone https://github.com/zdharma-continuum/zinit.git ~/.local/share/zinit/zinit.git
 ```
+
+Plugins are configured in `.zshrc` and auto-installed by zinit on first run.
 
 **Plugin list:**
 
 | Plugin | Description |
 |--------|-------------|
-| [evalcache](https://github.com/mroth/evalcache) | Caches eval commands for faster startup |
-| [zsh-defer](https://github.com/romkatv/zsh-defer) | Defer loading of non-essential plugins |
+| [zsh-completions](https://github.com/zsh-users/zsh-completions) | Additional completion definitions |
 | [fzf-tab](https://github.com/Aloxaf/fzf-tab) | Fuzzy dropdown tab completion |
 | [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-style inline history suggestions |
-| [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | Real-time syntax highlighting (faster alternative) |
+| [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | Real-time syntax highlighting (Turbo loaded) |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter cd - jump to directories (`j <path>`) |
 
 **Keyboard shortcuts:**

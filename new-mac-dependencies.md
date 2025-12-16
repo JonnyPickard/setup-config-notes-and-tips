@@ -59,32 +59,18 @@ brew install oven-sh/bun/bun
 
 ## 4. Shell & Terminal
 
-### Oh-My-Zsh
+### Zinit (Plugin Manager)
+
+Zinit is a fast, flexible zsh plugin manager with Turbo mode for async loading.
 
 ```sh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Install zinit
+git clone https://github.com/zdharma-continuum/zinit.git ~/.local/share/zinit/zinit.git
 ```
 
-### Oh-My-Zsh Custom Plugins
+Plugins are configured directly in `.zshrc` and loaded automatically by zinit on first run.
 
-```sh
-# evalcache (caches eval commands for faster startup)
-git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
-
-# zsh-defer (defer loading of non-essential plugins)
-git clone https://github.com/romkatv/zsh-defer ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-defer
-
-# fzf-tab (fuzzy tab completion)
-git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
-
-# zsh-autosuggestions (fish-style suggestions)
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-# fast-syntax-highlighting (faster than zsh-syntax-highlighting)
-git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
-```
-
-### Shell Prompt (prmt + oh-my-zsh hybrid)
+### Shell Prompt (prmt + oh-my-zsh git functions)
 
 Uses [prmt](https://github.com/3axap4eHko/prmt) for ultra-fast prompt rendering (~2ms) combined with oh-my-zsh git functions for full git status indicators.
 
