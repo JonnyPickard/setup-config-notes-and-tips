@@ -45,11 +45,15 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 plugins=(
   evalcache                  # Must be FIRST - caches eval commands
+  zsh-defer                  # Defer loading of non-essential plugins
   fzf-tab                    # Must be BEFORE autosuggestions (fuzzy tab completion)
   zsh-autosuggestions        # Inline history suggestions (fish-style)
-  fast-syntax-highlighting   # Faster than zsh-syntax-highlighting
+  # fast-syntax-highlighting is deferred below for faster startup
 )
 source $ZSH/oh-my-zsh.sh
+
+# Defer syntax highlighting - loads after prompt appears (~100ms savings)
+zsh-defer source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # ============================================================================
 # PROMPT CONFIGURATION (prmt + oh-my-zsh git hybrid)

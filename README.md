@@ -48,6 +48,9 @@ All plugins are configured in `.zshrc`. Install the custom plugins first:
 # evalcache (caches eval commands for faster startup)
 git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
 
+# zsh-defer (defer loading of non-essential plugins)
+git clone https://github.com/romkatv/zsh-defer ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-defer
+
 # fzf-tab (fuzzy tab completion)
 git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
 
@@ -63,6 +66,7 @@ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CU
 | Plugin | Description |
 |--------|-------------|
 | [evalcache](https://github.com/mroth/evalcache) | Caches eval commands for faster startup |
+| [zsh-defer](https://github.com/romkatv/zsh-defer) | Defer loading of non-essential plugins |
 | [fzf-tab](https://github.com/Aloxaf/fzf-tab) | Fuzzy dropdown tab completion |
 | [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-style inline history suggestions |
 | [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | Real-time syntax highlighting (faster alternative) |

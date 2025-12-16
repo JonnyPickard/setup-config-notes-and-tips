@@ -71,6 +71,9 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 # evalcache (caches eval commands for faster startup)
 git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
 
+# zsh-defer (defer loading of non-essential plugins)
+git clone https://github.com/romkatv/zsh-defer ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-defer
+
 # fzf-tab (fuzzy tab completion)
 git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
 
@@ -91,12 +94,14 @@ cargo install prmt
 ```
 
 **Prompt appearance (lambda-mod style):**
-```
+
+```sh
 λ jonny [~/projects/repo] at  main ✔
 →                                    [71a6d97]
 ```
 
 **Features:**
+
 - `λ` green on success, red on failure
 - Username in yellow, path in magenta
 - Git branch with `` icon in blue
@@ -139,7 +144,7 @@ brew install openjdk@17 openjdk@11
 
 ## 6. GUI Applications (Casks)
 
-### Essential
+### Essential Casks
 
 ```sh
 brew install --cask iterm2
@@ -154,7 +159,7 @@ brew install --cask jordanbaird-ice@beta    # Menu bar manager
 brew install --cask meld                    # Diff tool
 ```
 
-### Optional
+### Optional Casks
 
 ```sh
 brew install mpv                            # Media player (CLI/formula - stolendata-mpv cask has issues)
@@ -181,7 +186,7 @@ Login to sync settings/extensions. Key extension:
 <details>
 <summary>Full list</summary>
 
-```
+```sh
 aspell
 zoxide
 automake
