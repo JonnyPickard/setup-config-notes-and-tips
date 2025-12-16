@@ -10,6 +10,7 @@ See [new-mac-dependencies.md](./new-mac-dependencies.md) for full installation i
 
 - [Shell Prompt (prmt)](#shell-prompt-prmt)
 - [ZSH Plugins](#zsh-plugins)
+- [Profiling ZSH Startup Time](#profiling-zsh-startup-time)
 - [VS Code](#vs-code)
 - [iTerm2](#iterm2)
 
@@ -18,18 +19,21 @@ See [new-mac-dependencies.md](./new-mac-dependencies.md) for full installation i
 Uses a hybrid setup: [prmt](https://github.com/3axap4eHko/prmt) for ultra-fast rendering (~2ms) + oh-my-zsh git functions for full status indicators.
 
 **Appearance:**
-```
+
+```sh
 λ jonny [~/projects/repo] at  main ✔
 →                                    [71a6d97]
 ```
 
 **Features:**
+
 - `λ` green on success, red on failure
 - Username (yellow), path (magenta), git branch (blue)
 - Git status: `✔` clean, `+` staged, `!` modified, `-` deleted, `?` untracked
 - Git SHA in right prompt
 
 **Install:**
+
 ```sh
 cargo install prmt
 ```
@@ -55,6 +59,7 @@ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CU
 ```
 
 **Plugin list:**
+
 | Plugin | Description |
 |--------|-------------|
 | [evalcache](https://github.com/mroth/evalcache) | Caches eval commands for faster startup |
@@ -64,11 +69,84 @@ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CU
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter cd - jump to directories (`j <path>`) |
 
 **Keyboard shortcuts:**
+
 - `Tab` - Fuzzy dropdown completion
 - `→` (right arrow) - Accept inline suggestion
 - `Ctrl+R` - Fuzzy search command history
 - `Ctrl+T` - Fuzzy file finder
 - `Alt+C` - Fuzzy cd into directories
+
+## Profiling ZSH Startup Time
+
+Use these snippets to diagnose slow shell startup.
+
+### Quick Total Time
+
+Add to **top** of `.zshrc`:
+
+```sh
+zmodload zsh/datetime
+__zshrc_start=$EPOCHREALTIME
+```
+
+Add to **bottom** of `.zshrc`:
+
+```sh
+printf "zshrc loaded in %.0fms\n" "$(( ($EPOCHREALTIME - __zshrc_start) * 1000 ))"
+```
+
+### Per-Section Timing
+
+Add to **top** of `.zshrc`:
+
+```sh
+zmodload zsh/datetime
+__zshrc_start=$EPOCHREALTIME
+__start_time=$EPOCHREALTIME
+__timing() { printf "%-40s %6.0fms\n" "$1" "$(( ($EPOCHREALTIME - __start_time) * 1000 ))"; __start_time=$EPOCHREALTIME; }
+echo "───────────── ZSHRC TIMING ─────────────────────"
+```
+
+Add `__timing "Section name"` after each section you want to measure:
+
+```sh
+source $ZSH/oh-my-zsh.sh
+__timing "oh-my-zsh + plugins"
+
+# ... more config ...
+
+_evalcache fzf --zsh
+__timing "fzf (evalcache)"
+```
+
+Add to **bottom** of `.zshrc`:
+
+```sh
+printf "%-40s %6.0fms\n" "TOTAL" "$(( ($EPOCHREALTIME - __zshrc_start) * 1000 ))"
+echo "─────────────────────────────────────────────────"
+```
+
+### Function-Level Profiling (zprof)
+
+For detailed function-level breakdown, add to **top** of `.zshrc`:
+
+```sh
+zmodload zsh/zprof
+```
+
+Add to **bottom** of `.zshrc`:
+
+```sh
+zprof
+```
+
+### Command Line Timing
+
+Quick one-off measurement without modifying `.zshrc`:
+
+```sh
+time zsh -i -c exit
+```
 
 ## VS Code
 
