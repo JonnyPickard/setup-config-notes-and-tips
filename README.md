@@ -1,105 +1,83 @@
-# New Laptop Setup and Config
+# New Mac Setup
+
+Configuration files and setup notes for a new Mac development environment.
+
+## Quick Start
+
+See [new-mac-dependencies.md](./new-mac-dependencies.md) for full installation instructions.
 
 ## Contents
 
-- [VScode and Plugins](#vscode-and-plugins)
-- [ZSH and Plugins](#zsh-and-plugins)
-  - [lambda-mod theme](#lambda-mod-theme)
-    - [Original one left in for context](#original-one-left-in-for-context)
-  - [autojump](#autojump)
-  - [zsh-nvm](#zsh-nvm)
-  - [syntax highlighting](#syntax-highlighting)
-  - [autosuggestions](#autosuggestions)
+- [Shell Prompt (prmt)](#shell-prompt-prmt)
+- [ZSH Plugins](#zsh-plugins)
+- [VS Code](#vs-code)
 - [iTerm2](#iterm2)
 
-## VScode and Plugins
+## Shell Prompt (prmt)
 
-Theoretically just logging in should be good enough to install all my plugins.
+Uses a hybrid setup: [prmt](https://github.com/3axap4eHko/prmt) for ultra-fast rendering (~2ms) + oh-my-zsh git functions for full status indicators.
 
-[Atom Keymap](https://marketplace.visualstudio.com/items?itemName=ms-vscode.atom-keybindings) is probably the most important one. As at this point i'm so used to the atom shortcuts I can't live without them.
-
-## ZSH and Plugins
-
-### lambda-mod theme
-
-Use the modified on in this repo as it fixes the git branch prompt being in a `detached-head` state: [lambda-jmod.zsh-theme](./lambda-jmod.zsh-theme)
-
-```sh
-# copy to theme directory
-cp ./lambda-jmod.zsh-theme ~/.oh-my-zsh/themes/
+**Appearance:**
+```
+λ jonny [~/projects/repo] at  main ✔
+→                                    [71a6d97]
 ```
 
+**Features:**
+- `λ` green on success, red on failure
+- Username (yellow), path (magenta), git branch (blue)
+- Git status: `✔` clean, `+` staged, `!` modified, `-` deleted, `?` untracked
+- Git SHA in right prompt
+
+**Install:**
 ```sh
-# zsh - set here
-ZSH_THEME="lambda-jmod"
+cargo install prmt
 ```
 
-#### Original one left in for context
+Full configuration is in [.zshrc](./.zshrc).
 
-- [lambda-mod theme GitHub](https://raw.githubusercontent.com/halfo/lambda-mod-zsh-theme/refs/heads/master/lambda-mod.zsh-theme)
+## ZSH Plugins
 
-### autojump
-
-Quickly navigate your filesystem by jumping to frequently used directories.
-
-- [autojump GitHub](https://github.com/wting/autojump)
-
-- Install:
+All plugins are configured in `.zshrc`. Install the custom plugins first:
 
 ```sh
-brew install autojump
+# evalcache (caches eval commands for faster startup)
+git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/evalcache
+
+# fzf-tab (fuzzy tab completion)
+git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+
+# zsh-autosuggestions (fish-style suggestions)
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# fast-syntax-highlighting (faster than zsh-syntax-highlighting)
+git clone https://github.com/zdharma-continuum/fast-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 ```
 
-- Enable in Oh My Zsh:
+**Plugin list:**
+| Plugin | Description |
+|--------|-------------|
+| [evalcache](https://github.com/mroth/evalcache) | Caches eval commands for faster startup |
+| [fzf-tab](https://github.com/Aloxaf/fzf-tab) | Fuzzy dropdown tab completion |
+| [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | Fish-style inline history suggestions |
+| [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting) | Real-time syntax highlighting (faster alternative) |
+| [zoxide](https://github.com/ajeetdsouza/zoxide) | Smarter cd - jump to directories (`j <path>`) |
 
-Add to your plugins list in `.zshrc`:
+**Keyboard shortcuts:**
+- `Tab` - Fuzzy dropdown completion
+- `→` (right arrow) - Accept inline suggestion
+- `Ctrl+R` - Fuzzy search command history
+- `Ctrl+T` - Fuzzy file finder
+- `Alt+C` - Fuzzy cd into directories
 
-```sh
-plugins=(... autojump)
-```
+## VS Code
 
-### zsh-nvm
+Login to sync settings/extensions. Key extension:
 
-Autoload node when navigating into a directory containing an `.nvmrc` file
-
-- [zsh-nvm plugin GitHub](https://github.com/lukechilds/zsh-nvm)
-
-```sh
-plugins=(... zsh-nvm)
-```
-
-### syntax highlighting
-
-Get real-time syntax highlighting in your ZSH shell.
-
-- [zsh-syntax-highlighting GitHub](https://github.com/zsh-users/zsh-syntax-highlighting)
-
-- Enable in Oh My Zsh:
-
-Add to your plugins list in `.zshrc`:
-
-```sh
-plugins=(... zsh-syntax-highlighting)
-```
-
-### autosuggestions
-
-Get command suggestions as you type, based on your history and completions.
-
-- [zsh-autosuggestions GitHub](https://github.com/zsh-users/zsh-autosuggestions)
-
-- Enable in Oh My Zsh:
-
-Add to your plugins list in `.zshrc`:
-
-```sh
-plugins=(... zsh-autosuggestions)
-```
+- [Atom Keymap](https://marketplace.visualstudio.com/items?itemName=ms-vscode.atom-keybindings)
 
 ## iTerm2
 
-[iTerm2](https://iterm2.com/downloads.html)
+[iTerm2](https://iterm2.com/downloads.html) is my terminal of choice.
 
-I tried a bunch of different terminals on mac but iTerm2 is the most consistent one with the best feature set atm.
-
-[MainProfile.json](./MainProfile.json) is my main iTerm2 profile with colors etc. Just need to install iTerm2 and import is as a profile.
+Import [MainProfile.json](./MainProfile.json) as a profile for colors and settings.
