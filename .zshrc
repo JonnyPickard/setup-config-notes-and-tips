@@ -94,6 +94,27 @@ export LANG=en_US.UTF-8
 export EDITOR="code-insiders"
 
 # ============================================================================
+# HISTORY CONFIGURATION
+# ============================================================================
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000                    # Commands to keep in memory
+SAVEHIST=10000                    # Commands to save to file
+
+setopt SHARE_HISTORY              # Share history between all sessions
+setopt HIST_IGNORE_ALL_DUPS       # Don't store duplicate commands
+setopt HIST_IGNORE_SPACE          # Don't store commands starting with space
+setopt HIST_REDUCE_BLANKS         # Remove extra blanks from commands
+setopt INC_APPEND_HISTORY         # Add commands immediately, not at shell exit
+setopt EXTENDED_HISTORY           # Save timestamps with history
+
+# History search with arrow keys (type prefix, then Up/Down to cycle matches)
+bindkey '^[[A' history-search-backward    # Up arrow
+bindkey '^[[B' history-search-forward     # Down arrow
+bindkey '^[OA' history-search-backward    # Up arrow (alternate escape sequence)
+bindkey '^[OB' history-search-forward     # Down arrow (alternate escape sequence)
+
+# ============================================================================
 # ALIASES
 # ============================================================================
 

@@ -64,11 +64,26 @@ Plugins are configured in `.zshrc` and auto-installed by zinit on first run.
 
 **Keyboard shortcuts:**
 
-- `Tab` - Fuzzy dropdown completion
-- `→` (right arrow) - Accept inline suggestion
-- `Ctrl+R` - Fuzzy search command history
-- `Ctrl+T` - Fuzzy file finder
-- `Alt+C` - Fuzzy cd into directories
+| Shortcut | Action |
+|----------|--------|
+| `Tab` | Fuzzy dropdown completion (fzf-tab) |
+| `→` | Accept inline autosuggestion |
+| `↑` / `↓` | History search by prefix (type `brew`, press ↑ to cycle `brew` commands) |
+| `Ctrl+R` | Fuzzy search command history |
+| `Ctrl+T` | Fuzzy file finder |
+| `Alt+C` | Fuzzy cd into directories |
+
+**History search keybindings (add to `.zshrc`):**
+
+```zsh
+# Type a prefix, then Up/Down to cycle matching history entries
+bindkey '^[[A' history-search-backward    # Up arrow
+bindkey '^[[B' history-search-forward     # Down arrow
+bindkey '^[OA' history-search-backward    # Up arrow (alternate escape sequence)
+bindkey '^[OB' history-search-forward     # Down arrow (alternate escape sequence)
+```
+
+> **Note:** Both escape sequences (`^[[A` and `^[OA`) are needed because different terminals use different codes. This is separate from zsh-autosuggestions (gray ghost text) - it lets you interactively cycle through all matching history entries.
 
 ## Profiling ZSH Startup Time
 
